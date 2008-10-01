@@ -46,3 +46,9 @@ class String
     "\e[" + arg.join(";") + "m" + self + "\e[0m"
   end
 end
+
+def reset
+  puts "\ec"
+end
+
+
