@@ -2,3 +2,25 @@
 * to make it easy to color the console
 
 wow....
+
+
+GIT TUTORIAL
+
+git add [file|folder]
+git commit -m "lolmessage"
+git push                     # push to server
+git pull                     # pull from server
+
+git status                   # what has changed / what's there to commit
+git log                      # commit history
+git log master               # (vielleicht) commit history am server / branch
+
+
+HALP
+
+add this to .git/config
+
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+
