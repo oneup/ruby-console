@@ -101,10 +101,10 @@ end
 def setCursPos(*arg)
   row = 0
   col = 0
-  if arg.length > 1
+  if arg.length > 0
     row = arg[0]
   end
-  if arg.length > 2
+  if arg.length > 1
     col = arg[1]
   end
   print "\e[" + row.to_s + ";" + col.to_s + "H"
