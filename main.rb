@@ -4,6 +4,7 @@ require "console"
 
 Console.clear
 
+
 print "hello\n".color :normal, :red, :bg_white
 
 print Cursor.position.join(", ")
@@ -18,10 +19,12 @@ print "5te zeile".color :blink, :red
 Cursor.position = 6,4
 print "eingerückt"
 
-Console.color = :normal, :green, :bg_white
-print "ab jetzt grün"
+print "\n\n"
 
-print "lol"
+puts "lol"
+
+Console.color = :normal, :green, :bg_white
+print "grün"
 
 Console.color = :default
 
