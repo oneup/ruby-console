@@ -8,23 +8,19 @@ end
 class String
   def color(*arg)                         # colorize a string
     Console.color = arg
-    Console.print self
+    print self
     Console.color = :default
   end
 end
 
 class Console
-  def self.print s
-    Kernel.print "#{s}\n"
-  end
-  
   def self.clear           # reset the terminal
-    Kernel.print "\ec"       # *42*
+    print "\ec"       # *42*
   end
   
   def self.color=(arg)                         # colorize a string
     if arg == :default or not arg.is_a?(Array)      # when no arguments are given
-      Kernel.print "\e[0m"
+      print "\e[0m"
       return
       #arg = [:normal, :red, :bg_default]  # make it red
     end
@@ -69,7 +65,7 @@ class Console
     if arg.length > 2
       arg[2] = bg_color[arg[2]]       # background color
     end
-    Kernel.print "\e[" + arg.join(";") + "m"   # magic ansi
+    print "\e[" + arg.join(";") + "m"   # magic ansi
                                                    # escape sequence
   end
   
