@@ -16,7 +16,6 @@ print "links oben"
 Cursor.position = 5
 "5te zeile".color :blink, :red
 
-Cursor.position = (6, "5te zeile".length)
 Cursor.position = 6,4
 print "eingerückt"
 
@@ -30,5 +29,8 @@ print "grün"
 Console.color = :default
 
 print "normal"
+
+Cursor.up 3
+print "llol"
 
 print "\n"

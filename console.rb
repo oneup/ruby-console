@@ -127,4 +127,40 @@ class Cursor
     end
     print "\e[" + row.to_s + ";" + col.to_s + "H"
   end
+
+  def self.up(*arg)
+    if arg.length == 0
+      arg[0] == 1
+    end
+    print "\e[#{arg[0]}A"
+  end
+
+  def self.down(*arg)
+    if arg.length == 0
+      arg[0] == 1
+    end
+    print "\e[#{arg[0]}B"
+  end
+
+  def self.right(*arg)
+    if arg.length == 0
+      arg[0] == 1
+    end
+    print "\e[#{arg[0]}C"
+  end
+
+  def self.left(*arg)
+    if arg.length == 0
+      arg[0] == 1
+    end
+    print "\e[#{arg[0]}D"
+  end
+
+  def self.save
+    print "\e7"
+  end
+
+  def self.restore
+    print "\e8"
+  end
 end
