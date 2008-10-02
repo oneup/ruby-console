@@ -14,10 +14,6 @@ class String
 end
 
 class Console
-  def self.print s
-    Kernel.print "#{s}\n"
-  end
-  
   def self.clear           # reset the terminal
     Kernel.print "\ec"       # *42*
   end
