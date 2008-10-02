@@ -5,6 +5,7 @@ require "console"
 Console.clear
 
 
+
 "hello\n".color :normal, :red, :bg_white # prints automatically good!?
 
 print Cursor.position.join(", ")
