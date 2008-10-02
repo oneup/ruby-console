@@ -2,18 +2,19 @@
 
 require "console"
 
-reset
+Console.clear
 
 print "hello\n".color :normal, :red, :bg_white
 
-print getCursPos().join(", ")
+print Cursor.position.join(", ")
 
-setCursPos()
+Cursor.position = nil
 print "links oben"
-setCursPos(5)
+Cursor.position = 5
 print "5te zeile"
 
-setCursPos(6, "5te zeile".length)
+#Cursor.position = (6, "5te zeile".length)
+Cursor.position = 6,4
 print "eingerückt"
 
 

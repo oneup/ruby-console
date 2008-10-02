@@ -55,58 +55,66 @@ class String
   end
 end
 
-def reset           # reset the terminal
-  print "\ec"       # *42*
+class Console
+  def self.clear           # reset the terminal
+    print "\ec"       # *42*
+  end
 end
 
-def getCursPos
-  row = ""
-  col = ""
-  c = ""
+class Cursor
+  def self.position
+    row = ""
+    col = ""
+    c = ""
 
-  mapper = {
-    ?\e => "\e",
-    ?0  => "0",
-    ?1  => "1",
-    ?2  => "2",
-    ?3  => "3",
-    ?4  => "4",
-    ?5  => "5",
-    ?6  => "6",
-    ?7  => "7",
-    ?8  => "8",
-    ?9  => "9",
-    ?;  => ";",
-    ?R  => "R",
-    ?[  => "["
-  }
+    mapper = {
+      ?\e => "\e",
+      ?0  => "0",
+      ?1  => "1",
+      ?2  => "2",
+      ?3  => "3",
+      ?4  => "4",
+      ?5  => "5",
+      ?6  => "6",
+      ?7  => "7",
+      ?8  => "8",
+      ?9  => "9",
+      ?;  => ";",
+      ?R  => "R",
+      ?[  => "["
+    }
 
-  system("stty raw -echo")
-  print "\e[6n"
-  while (c = mapper[STDIN.getc]) != ";"
-    if c == "\e" or c == "["
-      next
-    else
-      row += c
+    system("stty raw -echo")
+    print "\e[6n"
+    while (c = mapper[STDIN.getc]) != ";"
+      if c == "\e" or c == "["
+        next
+      else
+        row += c
+      end
     end
-  end
-  while (c = mapper[STDIN.getc]) != "R"
-    col += c
-  end
-  system("stty -raw echo")
+    while (c = mapper[STDIN.getc]) != "R"
+      col += c
+    end
+    system("stty -raw echo")
 
-  [row, col]
+    [row, col]
+  end
+
+  def self.position=(*arg)
+    # could be refactored for proper wurkinx!
+    row = 0
+    col = 0
+    if arg.length > 0
+      row = arg[0]
+    end
+    if arg[0].is_a? Array
+      row = arg[0][0]
+      col = arg[0][1]
+    end
+    if arg.length > 1
+      col = arg[1]
+    end
+    print "\e[" + row.to_s + ";" + col.to_s + "H"
+  end
 end
-
-def setCursPos(*arg)
-  row = 0
-  col = 0
-  if arg.length > 0
-    row = arg[0]
-  end
-  if arg.length > 1
-    col = arg[1]
-  end
-  print "\e[" + row.to_s + ";" + col.to_s + "H"
-end
-
