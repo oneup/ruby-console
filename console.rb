@@ -8,7 +8,7 @@ end
 class String
   def color(*arg)                         # colorize a string
     Console.color = arg
-    Console.print self
+    print self
     Console.color = :default
   end
 end
