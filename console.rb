@@ -7,9 +7,28 @@ end
 
 class String
   def color(*arg)                         # colorize a string
-    if arg.length == 0                    # when no arguments are given
-      arg = [:normal, :red, :bg_default]  # make it red
+    Console.color = arg
+    Console.print self
+    Console.color = :default
+  end
+end
+
+class Console
+  def self.print s
+    Kernel.print "#{s}\n"
+  end
+  
+  def self.clear           # reset the terminal
+    Kernel.print "\ec"       # *42*
+  end
+  
+  def self.color=(arg)                         # colorize a string
+    if arg == :default or not arg.is_a?(Array)      # when no arguments are given
+      Kernel.print "\e[0m"
+      return
+      #arg = [:normal, :red, :bg_default]  # make it red
     end
+      
     attribute = {         # mapper for the attributes
       :normal     => 0,
       :bright     => 1,
@@ -50,15 +69,10 @@ class String
     if arg.length > 2
       arg[2] = bg_color[arg[2]]       # background color
     end
-    "\e[" + arg.join(";") + "m" + self + "\e[0m"   # magic ansi
+    Kernel.print "\e[" + arg.join(";") + "m"   # magic ansi
                                                    # escape sequence
   end
-end
-
-class Console
-  def self.clear           # reset the terminal
-    print "\ec"       # *42*
-  end
+  
 end
 
 class Cursor
@@ -85,7 +99,7 @@ class Cursor
     }
 
     system("stty raw -echo")
-    print "\e[6n"
+    Kernel.print "\e[6n"
     while (c = mapper[STDIN.getc]) != ";"
       if c == "\e" or c == "["
         next
@@ -115,6 +129,6 @@ class Cursor
     if arg.length > 1
       col = arg[1]
     end
-    print "\e[" + row.to_s + ";" + col.to_s + "H"
+    Kernel.print "\e[" + row.to_s + ";" + col.to_s + "H"
   end
 end

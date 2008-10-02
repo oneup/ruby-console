@@ -18,6 +18,13 @@ print "5te zeile".color :blink, :red
 Cursor.position = 6,4
 print "eingerückt"
 
+Console.color = :normal, :green, :bg_white
+print "ab jetzt grün"
 
+print "lol"
+
+Console.color = :default
+
+print "normal"
 
 print "\n"
