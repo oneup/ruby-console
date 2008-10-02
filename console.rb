@@ -65,7 +65,7 @@ class Console
     if arg.length > 2
       arg[2] = bg_color[arg[2]]       # background color
     end
-    print "\e[" + arg.join(";") + "m"   # magic ansi
+    print "\e[#{arg[0]};#{arg[1]}m"   # magic ansi
                                                    # escape sequence
   end
   
@@ -125,6 +125,6 @@ class Cursor
     if arg.length > 1
       col = arg[1]
     end
-    Kernel.print "\e[" + row.to_s + ";" + col.to_s + "H"
+    print "\e[" + row.to_s + ";" + col.to_s + "H"
   end
 end

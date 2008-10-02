@@ -5,7 +5,7 @@ require "console"
 Console.clear
 
 
-print "hello\n".color :normal, :red, :bg_white
+"hello\n".color :normal, :red, :bg_white
 
 print Cursor.position.join(", ")
 
@@ -13,7 +13,7 @@ Cursor.position = nil
 print "links oben"
 
 Cursor.position = 5
-print "5te zeile".color :blink, :red
+"5te zeile".color :blink, :red
 
 #Cursor.position = (6, "5te zeile".length)
 Cursor.position = 6,4
