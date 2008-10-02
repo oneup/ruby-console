@@ -1,0 +1,12 @@
+FUNCTIONALITY
+
+  - colorize text
+  - reset terminal
+
+
+TODO
+
+  - move cursor
+  - enable/disable linewrap
+  - draw windows, buttons, etc.
+  - anything else?
