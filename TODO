@@ -2,11 +2,11 @@ FUNCTIONALITY
 
   - colorize text
   - reset terminal
+  - move cursor
 
 
 TODO
 
-  - move cursor
   - enable/disable linewrap
   - draw windows, buttons, etc.
   - anything else?

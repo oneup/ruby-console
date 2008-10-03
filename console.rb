@@ -7,9 +7,26 @@ end
 
 class String
   def color(*arg)                         # colorize a string
-    Console.color = arg
+    Console.color(arg) +
+    self +
+    Console.color(:default)
+  end
+  def printAt(*arg)
+    row = 0
+    col = 0
+    if not arg.is_a?(Array)
+      arg = [arg]
+    end
+    if arg.length > 0
+      row = arg[0]
+    end
+    if arg.length > 1
+      col = arg[1]
+    end
+    Cursor.save
+    Cursor.position = row, col
     print self
-    Console.color = :default
+    Cursor.restore
   end
 end
 
@@ -18,14 +35,13 @@ class Console
     print "\ec"       # *42*
   end
   
-  def self.color=(arg)                         # colorize a string
-    if not arg.is_a?(Array)
-      arg = [arg]
+  def self.color(*arg)                         # colorize a string
+    if arg[0].is_a?(Array)
+      arg = arg[0]
     end
     if arg.length == 0
       arg = :default, :red, :bg_default
     end
-      
     attribute = {         # mapper for the attributes
       :normal     => 0,
       :bright     => 1,
@@ -67,10 +83,19 @@ class Console
     if arg.length > 2
       arg[2] = bg_color[arg[2]]       # background color
     end
-    print "\e[#{arg.join(";")}m"   # magic ansi
-                                                   # escape sequence
+    "\e[#{arg.join(";")}m"   # magic ansi escape sequence
   end
-  
+
+  def self.color=(arg)
+    if not arg.is_a?(Array)
+      arg = [arg]
+    end
+    if arg.length == 0
+      arg = :default, :red, :bg_default
+    end
+    print self.color arg
+  end
+
 end
 
 class Cursor
