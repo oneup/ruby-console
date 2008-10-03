@@ -19,10 +19,11 @@ class Console
   end
   
   def self.color=(arg)                         # colorize a string
-    if arg == :default or not arg.is_a?(Array)      # when no arguments are given
-      print "\e[0m"
-      return
-      #arg = [:normal, :red, :bg_default]  # make it red
+    if not arg.is_a?(Array)
+      arg = [arg]
+    end
+    if arg.length == 0
+      arg = :default, :red, :bg_default
     end
       
     attribute = {         # mapper for the attributes
@@ -32,7 +33,8 @@ class Console
       :underscore => 4,
       :blink      => 5,
       :reverse    => 7,
-      :hidden     => 8
+      :hidden     => 8,
+      :default    => 0
     }
     fg_color = {          # mapper for the foreground color
       :black   => 30,
@@ -65,7 +67,7 @@ class Console
     if arg.length > 2
       arg[2] = bg_color[arg[2]]       # background color
     end
-    print "\e[#{arg[0]};#{arg[1]}m"   # magic ansi
+    print "\e[#{arg.join(";")}m"   # magic ansi
                                                    # escape sequence
   end
   
@@ -94,8 +96,9 @@ class Cursor
       ?[  => "["
     }
 
+    termsettings = `stty -g`
     system("stty raw -echo")
-    Kernel.print "\e[6n"
+    print "\e[6n"
     while (c = mapper[STDIN.getc]) != ";"
       if c == "\e" or c == "["
         next
@@ -106,21 +109,19 @@ class Cursor
     while (c = mapper[STDIN.getc]) != "R"
       col += c
     end
-    system("stty -raw echo")
+    system("stty #{termsettings}")
 
     [row, col]
   end
 
-  def self.position=(*arg)
-    # could be refactored for proper wurkinx!
+  def self.position=(arg)
     row = 0
     col = 0
+    if not arg.is_a?(Array)
+      arg = [arg]
+    end
     if arg.length > 0
       row = arg[0]
-    end
-    if arg[0].is_a? Array
-      row = arg[0][0]
-      col = arg[0][1]
     end
     if arg.length > 1
       col = arg[1]
