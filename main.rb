@@ -4,9 +4,8 @@ require "console"
 
 Console.clear
 
-
-
-"hello\n".color :normal, :red, :bg_white # prints automatically good!?
+Cursor.down
+puts "hello\n".color :blink, :red, :bg_white
 
 print Cursor.position.join(", ")
 
@@ -22,7 +21,7 @@ print "eingerückt"
 print "\n\n"
 
 puts "lol"
-green = Console.color = :normal, :green, :bg_white
+Console.color = :normal, :green, :bg_white
 
 print "grün"
 
@@ -30,7 +29,9 @@ Console.color = :default
 
 print "normal"
 
-Cursor.up 3
-print "llol"
+Cursor.up 4
+print "lol"
 
+Cursor.position = 10
 print "\n"
+
