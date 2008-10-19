@@ -190,3 +190,30 @@ class Cursor
     print "\e8"
   end
 end
+
+class Win
+  row = 0
+  col = 0
+  width = 10
+  height = 5
+
+  def position=(arg)
+    row = 0
+    col = 0
+    text = ""
+
+    if not arg.is_a?(Array)
+      arg = [arg]
+    end
+    if arg.length > 0
+      row = arg[0]
+    end
+    if arg.length > 1
+      col = arg[1]
+    end
+  end
+
+  def draw
+    
+  end
+end
