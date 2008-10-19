@@ -32,6 +32,14 @@ print "normal"
 Cursor.up 4
 print "lol"
 
-Cursor.position = 10
+textbox = Win.new
+textbox.position = 12, 10
+textbox.width = 10
+textbox.height = 5
+textbox.text = "Hello!\nIm a textbox\nText"
+textbox.draw
+
+
+Cursor.position = 18
 print "\n"
 

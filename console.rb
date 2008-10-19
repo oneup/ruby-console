@@ -192,28 +192,48 @@ class Cursor
 end
 
 class Win
-  row = 0
-  col = 0
-  width = 10
-  height = 5
+  def initialize
+    @row = 0
+    @col = 0
+    @width = 10
+    @height = 5
+    @text = ""
+  end
+
+  def width=(width)
+    @width = width
+  end
+
+  def height=(height)
+    @height = height
+  end
+
+  def text=(text)
+    @text = text
+  end
 
   def position=(arg)
-    row = 0
-    col = 0
-    text = ""
+    @row = 0
+    @col = 0
 
     if not arg.is_a?(Array)
       arg = [arg]
     end
     if arg.length > 0
-      row = arg[0]
+      @row = arg[0]
     end
     if arg.length > 1
-      col = arg[1]
+      @col = arg[1]
     end
   end
 
   def draw
-    
+    @text = @text.split("\n")
+    0.upto(@text.length - 1) do |i|
+      @text[i] = @text[i][0, @width] + "\n"
+    end
+    0.upto((@text.length > @height ? @height : @text.length) - 1) do |i|
+      @text[i].printAt @row + i , @col
+    end
   end
 end
