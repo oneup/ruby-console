@@ -228,6 +228,16 @@ class Win
     end
   end
 
+  def drawBorder
+    ("_" * @width).printAt @row , @col
+    ("-" * @width).printAt @row + @height - 1, @col
+    char = "|"
+    char[0] = 179 + 8
+    0.upto(@text.length > @height - 3 ? @height - 3 : @text.length) do |i|
+      char.printAt @row + i + 1, @col
+    end
+  end
+
   def draw
     @text = @text.split("\n")
     0.upto(@text.length - 1) do |i|
@@ -242,15 +252,10 @@ class Win
         @text[i].printAt @row + i , @col
       end
     else
-      ("_" * @width).printAt @row , @col
-      char = "|"
-      char[0] = 179
+      drawBorder
       0.upto(@text.length > @height - 3 ? @height - 3 : @text.length) do |i|
-        char.printAt @row + i + 1, @col
         @text[i].printAt @row + i + 1, @col + 1
-        char.printAt @row + i + 1, @col + @width - 1
       end
-      ("-" * @width).printAt @row + @height - 1, @col
     end
   end
 end
