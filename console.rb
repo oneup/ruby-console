@@ -198,6 +198,7 @@ class Win
     @width = 10
     @height = 5
     @text = ""
+    @border = true
   end
 
   def width=(width)
@@ -230,10 +231,26 @@ class Win
   def draw
     @text = @text.split("\n")
     0.upto(@text.length - 1) do |i|
-      @text[i] = @text[i][0, @width] + "\n"
+      if @border == true
+        @text[i] = @text[i][0, @width - 2]
+      else
+        @text[i] = @text[i][0, @width]
+      end
     end
-    0.upto((@text.length > @height ? @height : @text.length) - 1) do |i|
-      @text[i].printAt @row + i , @col
+    if @border == false
+      0.upto((@text.length > @height ? @height : @text.length) - 1) do |i|
+        @text[i].printAt @row + i , @col
+      end
+    else
+      ("_" * @width).printAt @row , @col
+      char = "|"
+      char[0] = 179
+      0.upto(@text.length > @height - 3 ? @height - 3 : @text.length) do |i|
+        char.printAt @row + i + 1, @col
+        @text[i].printAt @row + i + 1, @col + 1
+        char.printAt @row + i + 1, @col + @width - 1
+      end
+      ("-" * @width).printAt @row + @height - 1, @col
     end
   end
 end
