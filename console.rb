@@ -96,6 +96,13 @@ class Console
     print self.color arg
   end
 
+  def self.width
+    `tput cols`.chomp.to_i
+  end
+
+  def self.height
+    `tput lines`.chomp.to_i
+  end
 end
 
 class Cursor
@@ -196,6 +203,10 @@ class Win
     @text = text
   end
 
+  def border=(yesno)
+    @border = yesno
+  end
+
   def position=(arg)
     @row = 0
     @col = 0
@@ -212,13 +223,13 @@ class Win
   end
 
   def drawBorder
-    ("_" * @width).printAt @row , @col
-    ("-" * @width).printAt @row + @height - 1, @col
-    print 14.chr
-    0.upto(@text.length > @height - 3 ? @height - 3 : @text.length) do |i|
-      119.chr.printAt @row + i + 1, @col
+    system('tput smacs')
+    (108.chr + 113.chr * (@width - 2) + 107.chr).printAt @row, @col
+    (109.chr + 113.chr * (@width - 2) + 106.chr).printAt @row + @height - 1, @col
+    0.upto(@height - 3) do |i|
+      (120.chr + " " * (@width - 2) + 120.chr).printAt @row + i + 1, @col
     end
-    print 15.chr
+    system('tput rmacs')
   end
 
   def draw
@@ -237,7 +248,7 @@ class Win
     else
       drawBorder
       0.upto(@text.length > @height - 3 ? @height - 3 : @text.length) do |i|
-        @text[i].printAt @row + i + 1, @col + 1
+        @text[i].to_s.printAt @row + i + 1, @col + 1
       end
     end
   end

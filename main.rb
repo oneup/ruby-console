@@ -34,7 +34,7 @@ print "lol"
 
 textbox = Win.new
 textbox.position = 12, 10
-textbox.width = 10
+textbox.width = 15
 textbox.height = 5
 textbox.text = "Hello!\nIm a textbox\nText"
 textbox.draw
