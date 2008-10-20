@@ -3,10 +3,12 @@ FUNCTIONALITY
   - colorize text
   - reset terminal
   - move cursor
+  - colored windows
 
 
 TODO
 
   - enable/disable linewrap
   - draw windows, buttons, etc.
+  - library documentation !!1!eleven
   - anything else?

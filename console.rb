@@ -183,34 +183,55 @@ end
 
 class Win
   def initialize
-    @row = 0
-    @col = 0
+    @row = 1
+    @col = 1
     @width = 10
     @height = 5
     @text = ""
     @border = true
+    @fg = :default
+    @bg = :bg_default
+    @bordercolor = :default
   end
 
   def width=(width)
     @width = width
   end
 
+  def width
+    @width
+  end
+
   def height=(height)
     @height = height
+  end
+
+  def height
+    @height
   end
 
   def text=(text)
     @text = text
   end
 
-  def border=(yesno)
-    @border = yesno
+  def text
+    @text
+  end
+
+  def border=(border)
+    if border == :none
+      @border = false
+      return
+    end
+    @border = true
+    @bordercolor = border
+  end
+
+  def border
+    @border
   end
 
   def position=(arg)
-    @row = 0
-    @col = 0
-
     if not arg.is_a?(Array)
       arg = [arg]
     end
@@ -222,33 +243,53 @@ class Win
     end
   end
 
+  def position
+    [@row, @col]
+  end
+
+  def fg=(fg)
+    @fg = fg
+  end
+
+  def fg
+    @fg
+  end
+
+  def bg=(bg)
+    @bg = bg
+  end
+
+  def bg
+    @bg
+  end
+
   def drawBorder
     system('tput smacs')
-    (108.chr + 113.chr * (@width - 2) + 107.chr).printAt @row, @col
-    (109.chr + 113.chr * (@width - 2) + 106.chr).printAt @row + @height - 1, @col
+    (108.chr + 113.chr * (@width - 2) + 107.chr).color(:normal, @bordercolor, @bg).printAt @row, @col
+    (109.chr + 113.chr * (@width - 2) + 106.chr).color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
     0.upto(@height - 3) do |i|
-      (120.chr + " " * (@width - 2) + 120.chr).printAt @row + i + 1, @col
+      (120.chr + " " * (@width - 2) + 120.chr).color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
     end
     system('tput rmacs')
   end
 
   def draw
-    @text = @text.split("\n")
-    0.upto(@text.length - 1) do |i|
+    text = @text.split("\n")
+    0.upto(text.length - 1) do |i|
       if @border == true
-        @text[i] = @text[i][0, @width - 2]
+        text[i] = text[i][0, @width - 2]
       else
-        @text[i] = @text[i][0, @width]
+        text[i] = text[i][0, @width]
       end
     end
     if @border == false
-      0.upto((@text.length > @height ? @height : @text.length) - 1) do |i|
-        @text[i].printAt @row + i , @col
+      0.upto((text.length > @height ? @height : text.length) - 1) do |i|
+        text[i].color(:normal, @fg, @bg).printAt @row + i , @col
       end
     else
       drawBorder
-      0.upto(@text.length > @height - 3 ? @height - 3 : @text.length) do |i|
-        @text[i].to_s.printAt @row + i + 1, @col + 1
+      0.upto(@text.length > @height - 3 ? @height - 3 : text.length) do |i|
+        text[i].to_s.color(:normal, @fg, @bg).printAt @row + i + 1, @col + 1
       end
     end
   end

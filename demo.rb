@@ -8,7 +8,7 @@ textbox = Win.new
 textbox.position = 1, 1
 textbox.width = Console.width
 textbox.height = Console.height - 1
-textbox.text = `ls`.color(:normal , :red)
+textbox.text = `ls`
 textbox.draw
 
 Cursor.position = Console.height
