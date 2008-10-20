@@ -104,34 +104,17 @@ class Cursor
     col = ""
     c = ""
 
-    mapper = {
-      ?\e => "\e",
-      ?0  => "0",
-      ?1  => "1",
-      ?2  => "2",
-      ?3  => "3",
-      ?4  => "4",
-      ?5  => "5",
-      ?6  => "6",
-      ?7  => "7",
-      ?8  => "8",
-      ?9  => "9",
-      ?;  => ";",
-      ?R  => "R",
-      ?[  => "["
-    }
-
     termsettings = `stty -g`
     system("stty raw -echo")
     print "\e[6n"
-    while (c = mapper[STDIN.getc]) != ";"
+    while (c = STDIN.getc.chr) != ";"
       if c == "\e" or c == "["
         next
       else
         row += c
       end
     end
-    while (c = mapper[STDIN.getc]) != "R"
+    while (c = STDIN.getc.chr) != "R"
       col += c
     end
     system("stty #{termsettings}")
@@ -231,11 +214,11 @@ class Win
   def drawBorder
     ("_" * @width).printAt @row , @col
     ("-" * @width).printAt @row + @height - 1, @col
-    char = "|"
-    char[0] = 179 + 8
+    print 14.chr
     0.upto(@text.length > @height - 3 ? @height - 3 : @text.length) do |i|
-      char.printAt @row + i + 1, @col
+      119.chr.printAt @row + i + 1, @col
     end
+    print 15.chr
   end
 
   def draw
