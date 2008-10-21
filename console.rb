@@ -219,7 +219,7 @@ class Win
     @text
   end
 
-  def border=(*arg)
+  def border=(arg)
     if not arg.is_a?(Array)
       arg = [arg]
     end
@@ -292,7 +292,21 @@ class Win
       :horizontal  => "\u2550",
       :vertical    => "\u2551"
     }
-    mapper = double
+    round = {
+      :upper_left  => "\u256D",
+      :upper_right => "\u256E",
+      :lower_left  => "\u2570",
+      :lower_right => "\u256F",
+      :horizontal  => "\u2500",
+      :vertical    => "\u2502"
+    }
+    mapper = case @border
+      when :single then single
+      when :bold   then bold
+      when :double then double
+      when :round  then round
+      else single
+    end
     (mapper[:upper_left] + mapper[:horizontal] * (@width - 2) + mapper[:upper_right]).color(:normal, @bordercolor, @bg).printAt @row, @col
     (mapper[:lower_left] + mapper[:horizontal] * (@width - 2) + mapper[:lower_right]).color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
     0.upto(@height - 3) do |i|
@@ -303,13 +317,13 @@ class Win
   def draw
     text = @text.split("\n")
     0.upto(text.length - 1) do |i|
-      if @border == true
+      if @border != :none
         text[i] = text[i][0, @width - 2]
       else
         text[i] = text[i][0, @width]
       end
     end
-    if @border == false
+    if @border == :none
       0.upto((text.length > @height ? @height : text.length) - 1) do |i|
         text[i].color(:normal, @fg, @bg).printAt @row + i , @col
       end

@@ -38,12 +38,22 @@ textbox.position = 12, 10
 textbox.width = 15
 textbox.height = 5
 textbox.text = `ls`
-textbox.border = :single, :red
+textbox.border = :double, :white
 textbox.bg = :bg_black
 textbox.fg = :yellow
 textbox.draw
 
+network = Win.new
+network.width = Console.width / 2
+network.height = Console.height - 1
+network.position = 1, Console.width - network.width + 1
+network.border = :round, :red
+network.bg = :bg_white
+network.fg = :yellow
+network.text = `/sbin/ifconfig`
+network.draw
 
-Cursor.position = 18
+
+Cursor.position = Console.height - 1
 print "\n"
 
