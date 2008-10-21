@@ -264,13 +264,13 @@ class Win
   end
 
   def drawBorder
-    system('tput smacs')
-    (108.chr + 113.chr * (@width - 2) + 107.chr).color(:normal, @bordercolor, @bg).printAt @row, @col
-    (109.chr + 113.chr * (@width - 2) + 106.chr).color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
+#    system('tput smacs')
+    ("," + "-" * (@width - 2) + ".").color(:normal, @bordercolor, @bg).printAt @row, @col
+    ("`" + "-" * (@width - 2) + "'").color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
     0.upto(@height - 3) do |i|
-      (120.chr + " " * (@width - 2) + 120.chr).color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
+      ("|" + " " * (@width - 2) + "|").color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
     end
-    system('tput rmacs')
+#    system('tput rmacs')
   end
 
   def draw
