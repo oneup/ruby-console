@@ -189,7 +189,7 @@ class Win
     @width = 10
     @height = 5
     @text = ""
-    @border = true
+    @border = :single
     @fg = :default
     @bg = :bg_default
     @bordercolor = :default
@@ -219,17 +219,20 @@ class Win
     @text
   end
 
-  def border=(border)
-    if border == :none
-      @border = false
-      return
+  def border=(*arg)
+    if not arg.is_a?(Array)
+      arg = [arg]
     end
-    @border = true
-    @bordercolor = border
+    if arg.length > 0
+      @border = arg[0]
+    end
+    if arg.length > 1
+      @bordercolor = arg[1]
+    end
   end
 
   def border
-    @border
+    [@border, @bordercolor]
   end
 
   def position=(arg)
@@ -265,13 +268,36 @@ class Win
   end
 
   def drawBorder
-#    system('tput smacs')
-    ("\u250C" + "\u2500" * (@width - 2) + "\u2510").color(:normal, @bordercolor, @bg).printAt @row, @col
-    ("\u2514" + "\u2500" * (@width - 2) + "\u2518").color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
+    single = {
+      :upper_left  => "\u250C",
+      :upper_right => "\u2510",
+      :lower_left  => "\u2514",
+      :lower_right => "\u2518",
+      :horizontal  => "\u2500",
+      :vertical    => "\u2502"
+    }
+    bold = {
+      :upper_left  => "\u250D",
+      :upper_right => "\u2511",
+      :lower_left  => "\u2515",
+      :lower_right => "\u2519",
+      :horizontal  => "\u2501",
+      :vertical    => "\u2503"
+    }
+    double = {
+      :upper_left  => "\u2554",
+      :upper_right => "\u2557",
+      :lower_left  => "\u255A",
+      :lower_right => "\u255D",
+      :horizontal  => "\u2550",
+      :vertical    => "\u2551"
+    }
+    mapper = double
+    (mapper[:upper_left] + mapper[:horizontal] * (@width - 2) + mapper[:upper_right]).color(:normal, @bordercolor, @bg).printAt @row, @col
+    (mapper[:lower_left] + mapper[:horizontal] * (@width - 2) + mapper[:lower_right]).color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
     0.upto(@height - 3) do |i|
-      ("\u2502" + " " * (@width - 2) + "\u2502").color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
+      (mapper[:vertical] + " " * (@width - 2) + mapper[:vertical]).color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
     end
-#    system('tput rmacs')
   end
 
   def draw
