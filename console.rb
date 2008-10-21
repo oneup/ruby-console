@@ -1,4 +1,5 @@
-#!/usr/bin/ruby
+#!/usr/bin/ruby1.9
+#-*- coding: UTF-8 -*-
 
 if __FILE__ == $0
   puts "This is a module, don't run it from the command line."
@@ -265,10 +266,10 @@ class Win
 
   def drawBorder
 #    system('tput smacs')
-    ("," + "-" * (@width - 2) + ".").color(:normal, @bordercolor, @bg).printAt @row, @col
-    ("`" + "-" * (@width - 2) + "'").color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
+    ("\u250C" + "\u2500" * (@width - 2) + "\u2510").color(:normal, @bordercolor, @bg).printAt @row, @col
+    ("\u2514" + "\u2500" * (@width - 2) + "\u2518").color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
     0.upto(@height - 3) do |i|
-      ("|" + " " * (@width - 2) + "|").color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
+      ("\u2502" + " " * (@width - 2) + "\u2502").color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
     end
 #    system('tput rmacs')
   end

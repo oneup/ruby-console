@@ -1,4 +1,5 @@
-#!/usr/bin/ruby
+#!/usr/bin/ruby1.9
+#-*- coding: UTF-8 -*-
 
 require "console"
 
