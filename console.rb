@@ -140,7 +140,7 @@ class Cursor
       row = arg[0].to_i + 1
     end
     if arg.length > 1
-      col = arg[1.to_i] + 1
+      col = arg[1].to_i + 1
     end
     print "\e[" + row.to_s + ";" + col.to_s + "H"
   end
