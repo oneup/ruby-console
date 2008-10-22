@@ -127,7 +127,7 @@ class Cursor
     end
     system("stty #{termsettings}")
 
-    [row, col]
+    [row.to_i - 1, col.to_i - 1]
   end
 
   def self.position=(arg)
@@ -137,10 +137,10 @@ class Cursor
       arg = [arg]
     end
     if arg.length > 0
-      row = arg[0]
+      row = arg[0].to_i + 1
     end
     if arg.length > 1
-      col = arg[1]
+      col = arg[1.to_i] + 1
     end
     print "\e[" + row.to_s + ";" + col.to_s + "H"
   end

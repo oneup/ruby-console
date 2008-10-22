@@ -46,7 +46,7 @@ textbox.draw
 network = Win.new
 network.width = Console.width / 2
 network.height = Console.height - 1
-network.position = 1, Console.width - network.width + 1
+network.position = 0, Console.width - network.width
 network.border = :round, :red
 network.bg = :bg_white
 network.fg = :yellow
@@ -54,6 +54,6 @@ network.text = `/sbin/ifconfig`
 network.draw
 
 
-Cursor.position = Console.height - 1
+Cursor.position = Console.height - 2
 print "\n"
 
