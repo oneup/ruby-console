@@ -32,8 +32,12 @@ class String
 end
 
 class Console
-  def self.clear           # reset the terminal
-    print "\ec"       # *42*
+  def self.clear
+    system "tput clear"
+  end
+
+  def self.reset
+    system "tput reset"
   end
   
   def self.color(*arg)                         # colorize a string
@@ -142,7 +146,7 @@ class Cursor
     if arg.length > 1
       col = arg[1]
     end
-    print "\e[" + row.to_s + ";" + col.to_s + "H"
+    system "tput cup #{row} #{col}"
   end
 
   def self.up(*arg)
@@ -163,22 +167,22 @@ class Cursor
     if arg.length == 0
       arg[0] == 1
     end
-    print "\e[#{arg[0]}C"
+    system "tput cuf #{arg[0]}"
   end
 
   def self.left(*arg)
     if arg.length == 0
       arg[0] == 1
     end
-    print "\e[#{arg[0]}D"
+    system "tput cub #{arg[0]}"
   end
 
   def self.save
-    print "\e7"
+    system "tput sc"
   end
 
   def self.restore
-    print "\e8"
+    system "tput rc"
   end
 end
 
