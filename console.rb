@@ -307,10 +307,21 @@ class Win
       when :round  then round
       else single
     end
-    (mapper[:upper_left] + mapper[:horizontal] * (@width - 2) + mapper[:upper_right]).color(:normal, @bordercolor, @bg).printAt @row, @col
-    (mapper[:lower_left] + mapper[:horizontal] * (@width - 2) + mapper[:lower_right]).color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
+    (mapper[:upper_left] +
+     mapper[:horizontal] * (@width - 2) +
+     mapper[:upper_right])
+     .color(:normal, @bordercolor, @bg).printAt @row, @col
+
+    (mapper[:lower_left] +
+     mapper[:horizontal] * (@width - 2) +
+     mapper[:lower_right])
+     .color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
+
     0.upto(@height - 3) do |i|
-      (mapper[:vertical] + " " * (@width - 2) + mapper[:vertical]).color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
+      (mapper[:vertical] +
+       " " * (@width - 2) +
+       mapper[:vertical])
+       .color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
     end
   end
 
