@@ -35,9 +35,9 @@ print "lol"
 
 textbox = Win.new
 textbox.position = 12, 10
-textbox.width = 15
-textbox.height = 5
-textbox.text = `ls`
+textbox.width = 25
+textbox.height = 8
+textbox.text = `git branch`
 textbox.border = :double, :white
 textbox.bg = :bg_black
 textbox.fg = :yellow
@@ -50,7 +50,7 @@ network.position = 0, Console.width - network.width
 network.border = :round, :red
 network.bg = :bg_white
 network.fg = :yellow
-network.text = `/sbin/ifconfig`
+network.text = `git log`
 network.draw
 
 
