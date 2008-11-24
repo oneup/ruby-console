@@ -6,6 +6,9 @@ if __FILE__ == $0
   exit
 end
 
+$is_ascii = true
+
+
 class String
   def color(*arg)                         # colorize a string
     Console.color(arg) +
@@ -32,6 +35,10 @@ class String
 end
 
 class Console
+  def self.ascii(i)
+    $is_ascii = i
+  end
+
   def self.clear           # reset the terminal
     print "\ec"       # *42*
   end
@@ -268,38 +275,74 @@ class Win
   end
 
   def drawBorder
-    single = {
-      :upper_left  => "\u250C",
-      :upper_right => "\u2510",
-      :lower_left  => "\u2514",
-      :lower_right => "\u2518",
-      :horizontal  => "\u2500",
-      :vertical    => "\u2502"
-    }
-    bold = {
-      :upper_left  => "\u250D",
-      :upper_right => "\u2511",
-      :lower_left  => "\u2515",
-      :lower_right => "\u2519",
-      :horizontal  => "\u2501",
-      :vertical    => "\u2503"
-    }
-    double = {
-      :upper_left  => "\u2554",
-      :upper_right => "\u2557",
-      :lower_left  => "\u255A",
-      :lower_right => "\u255D",
-      :horizontal  => "\u2550",
-      :vertical    => "\u2551"
-    }
-    round = {
-      :upper_left  => "\u256D",
-      :upper_right => "\u256E",
-      :lower_left  => "\u2570",
-      :lower_right => "\u256F",
-      :horizontal  => "\u2500",
-      :vertical    => "\u2502"
-    }
+    if $is_ascii == true
+      single = {
+        :upper_left  => "+",
+        :upper_right => "+",
+        :lower_left  => "+",
+        :lower_right => "+",
+        :horizontal  => "-",
+        :vertical    => "|"
+      }
+      bold = {
+        :upper_left  => "+",
+        :upper_right => "+",
+        :lower_left  => "+",
+        :lower_right => "+",
+        :horizontal  => "-",
+        :vertical    => "|"
+      }
+      double = {
+        :upper_left  => "+",
+        :upper_right => "+",
+        :lower_left  => "+",
+        :lower_right => "+",
+        :horizontal  => "-",
+        :vertical    => "|"
+      }
+      round = {
+        :upper_left  => "+",
+        :upper_right => "+",
+        :lower_left  => "+",
+        :lower_right => "+",
+        :horizontal  => "-",
+        :vertical    => "|"
+      }
+    else
+      single = {
+        :upper_left  => "\u250C",
+        :upper_right => "\u2510",
+        :lower_left  => "\u2514",
+        :lower_right => "\u2518",
+        :horizontal  => "\u2500",
+        :vertical    => "\u2502"
+      }
+      bold = {
+        :upper_left  => "\u250D",
+        :upper_right => "\u2511",
+        :lower_left  => "\u2515",
+        :lower_right => "\u2519",
+        :horizontal  => "\u2501",
+        :vertical    => "\u2503"
+      }
+      double = {
+        :upper_left  => "\u2554",
+        :upper_right => "\u2557",
+        :lower_left  => "\u255A",
+        :lower_right => "\u255D",
+        :horizontal  => "\u2550",
+        :vertical    => "\u2551"
+      }
+      round = {
+        :upper_left  => "\u256D",
+        :upper_right => "\u256E",
+        :lower_left  => "\u2570",
+        :lower_right => "\u256F",
+        :horizontal  => "\u2500",
+        :vertical    => "\u2502"
+      }
+    end
+
     mapper = case @border
       when :single then single
       when :bold   then bold
