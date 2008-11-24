@@ -94,7 +94,7 @@ class Console
     if arg.length == 0
       arg = :default, :red, :bg_default
     end
-    print self.color arg
+    print self.color(arg)
   end
 
   def self.width
@@ -309,19 +309,16 @@ class Win
     end
     (mapper[:upper_left] +
      mapper[:horizontal] * (@width - 2) +
-     mapper[:upper_right])
-     .color(:normal, @bordercolor, @bg).printAt @row, @col
+     mapper[:upper_right]).color(:normal, @bordercolor, @bg).printAt @row, @col
 
     (mapper[:lower_left] +
      mapper[:horizontal] * (@width - 2) +
-     mapper[:lower_right])
-     .color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
+     mapper[:lower_right]).color(:normal, @bordercolor, @bg).printAt @row + @height - 1, @col
 
     0.upto(@height - 3) do |i|
       (mapper[:vertical] +
        " " * (@width - 2) +
-       mapper[:vertical])
-       .color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
+       mapper[:vertical]).color(:normal, @bordercolor, @bg).printAt @row + i + 1, @col
     end
   end
 

@@ -6,7 +6,7 @@ require "console"
 Console.clear
 
 Cursor.down
-puts "hello\n".color :blink, :red, :bg_white
+puts "hello\n".color(:blink, :red, :bg_white)
 
 print Cursor.position.join(", ")
 
