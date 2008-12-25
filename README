@@ -1,3 +1,5 @@
+ruby console - README                                       [2008-12-25]
+
 * console color library
 * to make it easy to color the console
 
@@ -13,7 +15,7 @@ git pull                     # pull from server
 
 git status                   # what has changed / what's there to commit
 git log                      # commit history
-git log master               # (vielleicht) commit history am server / branch
+git log master          # (vielleicht) commit history am server / branch
 
 
 HALP
@@ -24,3 +26,4 @@ add this to .git/config
         remote = origin
         merge = refs/heads/master
 
+ruby console - README                                              [EOF]
