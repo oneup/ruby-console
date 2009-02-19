@@ -14,7 +14,7 @@ Cursor.position = nil
 print "links oben"
 
 Cursor.position = 5
-"5te zeile".color :blink, :red
+puts "5te zeile".color :blink, :red
 
 Cursor.position = 6,4
 print "eingerückt"
