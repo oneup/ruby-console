@@ -9,9 +9,9 @@ $is_ascii = false
 filelist = Win.new()
 playlist = Win.new()
 
-while 1:
+while 1 do
 
-    filelist.text = Dir.entries(Dir.pwd).join("\n")
+    filelist.text = Dir.entries(Dir.pwd).sort().join("\n")
     filelist.width = Console.width / 2
     filelist.height  = Console.height
     filelist.position = 0, 0
